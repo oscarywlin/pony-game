@@ -7,7 +7,7 @@ export default defineConfig(({ mode }) => {
     const gasUrl = env.VITE_GOOGLE_APP_SCRIPT_URL || '';
 
     return {
-        base: './',
+        base: '/pony-game/',
         plugins: [react()],
         server: {
             proxy: {
@@ -21,6 +21,19 @@ export default defineConfig(({ mode }) => {
                         });
                     },
                 },
+            },
+        },
+        test: {
+            globals: true,
+            environment: 'jsdom',
+            setupFiles: './src/test/setup.ts',
+            coverage: {
+                provider: 'v8',
+                reporter: ['text', 'json', 'html'],
+                exclude: [
+                    'node_modules/',
+                    'src/test/setup.ts',
+                ],
             },
         },
     };
